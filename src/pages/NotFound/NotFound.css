@@ -1,0 +1,233 @@
+.not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Glow Orbs */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--accent);
+  top: 10%;
+  left: 20%;
+  animation: orb-pulse 8s infinite alternate;
+}
+
+.glow-orb-2 {
+  width: 250px;
+  height: 250px;
+  background: #00f0ff;
+  bottom: 10%;
+  right: 20%;
+  animation: orb-pulse 6s infinite alternate-reverse;
+}
+
+@keyframes orb-pulse {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.1;
+  }
+  100% {
+    transform: translate(30px, 20px) scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+.not-found-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Illustration */
+.illustration-container {
+  position: relative;
+  margin-bottom: 2rem;
+  width: 280px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.digit-glow {
+  font-size: 130px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--accent), #00d2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.25;
+  user-select: none;
+  font-family: var(--heading);
+}
+
+.floating-astronaut {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.astronaut-svg {
+  width: 100%;
+  height: 100%;
+  color: var(--text-h);
+}
+
+.antenna-glow {
+  animation: antenna-blink 1.5s infinite alternate;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+}
+
+@keyframes antenna-blink {
+  0% {
+    fill: var(--accent);
+    filter: drop-shadow(0 0 2px var(--accent));
+  }
+  100% {
+    fill: #00f0ff;
+    filter: drop-shadow(0 0 8px #00f0ff);
+  }
+}
+
+/* Text */
+.not-found-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-h);
+  letter-spacing: -0.5px;
+}
+
+.not-found-message {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+}
+
+/* Action Buttons */
+.action-buttons-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary, .btn-secondary, .btn-tertiary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  box-shadow: 0 4px 14px rgba(170, 59, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 4px 20px rgba(170, 59, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--code-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+  transform: translateY(-1px);
+}
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid transparent;
+}
+
+.btn-tertiary:hover {
+  color: var(--text-h);
+  border-color: var(--border);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Dark mode tweaks for tertiary background */
+@media (prefers-color-scheme: dark) {
+  .btn-tertiary:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .digit-glow {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 640px) {
+  .action-buttons-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-primary, .btn-secondary, .btn-tertiary {
+    width: 100%;
+    justify-content: center;
+  }
+  .not-found-title {
+    font-size: 1.75rem;
+  }
+}
