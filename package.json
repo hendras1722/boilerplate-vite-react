@@ -16,9 +16,13 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@radix-ui/themes": "^3.3.0",
     "@tanstack/react-router": "^1.170.9",
+    "framer-motion": "^12.40.0",
     "lucide-react": "^1.17.0",
+    "ofetch": "^1.5.1",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

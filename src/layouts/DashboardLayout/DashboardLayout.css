@@ -599,7 +599,6 @@
   padding: 1.5rem;
   overflow-y: auto;
   flex-grow: 1;
-  animation: fadeInUp 0.5s ease-out;
 }
 
 /* Custom Scrollbar */

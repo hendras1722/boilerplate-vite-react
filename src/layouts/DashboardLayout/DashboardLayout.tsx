@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Outlet, Link, useNavigate } from '@tanstack/react-router'
+import { Outlet, Link, useNavigate, useLocation } from '@tanstack/react-router'
+import { motion } from 'framer-motion'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { LogOut, User, Settings, Shield } from 'lucide-react'
+import { InputField } from '../../components/ui/InputField'
+import { Button } from '../../components/ui/Button'
 import './DashboardLayout.css'
 
 type Theme = 'light' | 'dark'
@@ -15,6 +18,7 @@ function getInitialTheme(): Theme {
 
 export function DashboardLayout() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
@@ -104,6 +108,18 @@ export function DashboardLayout() {
             About
           </Link>
 
+          <Link
+            to="/api-demo"
+            className="nav-item"
+            activeProps={{ className: 'nav-item active' }}
+            onClick={closeSidebar}
+          >
+            <svg className="nav-item-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            API Demo
+          </Link>
+
           <span className="sidebar-section-label">Analytics</span>
 
           <a href="#" className="nav-item" onClick={closeSidebar}>
@@ -139,19 +155,19 @@ export function DashboardLayout() {
               <span className="sidebar-footer-role">Administrator</span>
             </div>
           </div>
-          <button className="logout-btn" onClick={handleLogout}>
+          <Button className="logout-btn" onClick={handleLogout} variant="ghost" color="gray">
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
             Sign Out
-          </button>
+          </Button>
         </div>
       </aside>
 
       {/* Main Content */}
       <div className="main-wrapper">
         <header className="topbar">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1, minWidth: 0 }}>
+          <div className="flex items-center gap-3 flex-1 min-w-0">
             <button
               className="hamburger-btn"
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -169,11 +185,16 @@ export function DashboardLayout() {
               )}
             </button>
 
-            <div className="search-bar">
-              <svg width="18" height="18" fill="none" stroke="currentColor" strokeOpacity={0.4} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input type="text" placeholder="Search anything..." />
+            <div className="search-bar border-0 bg-transparent p-0">
+              <InputField
+                placeholder="Search anything..."
+                icon={
+                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeOpacity={0.4} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                }
+                className="w-full max-w-[400px]"
+              />
             </div>
           </div>
 
@@ -246,15 +267,15 @@ export function DashboardLayout() {
                     <span className="dropdown-menu-header-name">Alex Morgan</span>
                     <span className="dropdown-menu-header-email">alex.morgan@nexus.com</span>
                   </div>
-                  
+
                   <DropdownMenu.Separator className="dropdown-menu-separator" />
-                  
+
                   <DropdownMenu.Item className="dropdown-menu-item" onSelect={() => navigate({ to: '/dashboard' })}>
                     <User size={16} className="dropdown-menu-item-icon" />
                     <span>My Profile</span>
                     <span className="dropdown-menu-shortcut">⇧⌘P</span>
                   </DropdownMenu.Item>
-                  
+
                   <DropdownMenu.Item className="dropdown-menu-item">
                     <Settings size={16} className="dropdown-menu-item-icon" />
                     <span>Settings</span>
@@ -265,15 +286,15 @@ export function DashboardLayout() {
                     <Shield size={16} className="dropdown-menu-item-icon" />
                     <span>Security</span>
                   </DropdownMenu.Item>
-                  
+
                   <DropdownMenu.Separator className="dropdown-menu-separator" />
-                  
+
                   <DropdownMenu.Item className="dropdown-menu-item logout" onSelect={handleLogout}>
                     <LogOut size={16} className="dropdown-menu-item-icon" />
                     <span>Sign Out</span>
                     <span className="dropdown-menu-shortcut">⇧⌘Q</span>
                   </DropdownMenu.Item>
-                  
+
                   <DropdownMenu.Arrow className="dropdown-menu-arrow" />
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>
@@ -281,8 +302,19 @@ export function DashboardLayout() {
           </div>
         </header>
 
-        <main className="content-area">
-          <Outlet />
+        <main className="content-area" style={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <AnimatePresence mode="wait"> */}
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
+          >
+            <Outlet />
+          </motion.div>
+          {/* </AnimatePresence> */}
         </main>
       </div>
     </div>

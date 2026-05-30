@@ -179,7 +179,7 @@ export function DashboardOverview() {
       </div>
 
       {/* Transactions Table */}
-      <div className="glass-card table-wrapper" style={{ marginBottom: '1.5rem' }}>
+      <div className="glass-card table-wrapper mb-6">
         <div className="glass-card-title">
           <h3>Recent Transactions</h3>
           <span className="card-badge">5 New</span>
@@ -279,7 +279,7 @@ export function DashboardOverview() {
             onOpenChange={setIsDialogOpen}
             title={
               <>
-                <UserPlus size={20} style={{ color: 'var(--accent-9)' }} />
+                <UserPlus size={20} className="text-[var(--accent-9)]" />
                 <span>Invite Team Member</span>
               </>
             }

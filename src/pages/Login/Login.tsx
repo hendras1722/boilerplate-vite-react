@@ -1,4 +1,6 @@
 import { Link, useNavigate } from '@tanstack/react-router'
+import { InputField } from '../../components/ui/InputField'
+import { Button } from '../../components/ui/Button'
 import './Login.css'
 
 export function Login() {
@@ -14,21 +16,36 @@ export function Login() {
           e.preventDefault()
           navigate({ to: '/dashboard' })
         }}>
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="••••••••" required />
-          </div>
-          <button type="submit" className="login-button">Sign In</button>
+          <InputField 
+            type="email" 
+            id="email" 
+            label="Email" 
+            placeholder="Enter your email" 
+            required 
+            className="text-white"
+          />
+          <InputField 
+            type="password" 
+            id="password" 
+            label="Password" 
+            placeholder="••••••••" 
+            required 
+            className="text-white"
+          />
+          <Button 
+            type="submit" 
+            className="login-button mt-4 w-full justify-center"
+          >
+            Sign In
+          </Button>
         </form>
         
-        <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.85rem' }}>
-          <Link to="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>&larr; Back to Home</Link>
+        <div className="mt-8 text-center text-[0.85rem]">
+          <Link to="/" className="text-white/70 no-underline hover:text-white transition-colors">&larr; Back to Home</Link>
         </div>
       </div>
     </div>
   )
 }
+
+

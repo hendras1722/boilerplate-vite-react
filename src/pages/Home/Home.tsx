@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from '../../assets/react.svg'
 import viteLogo from '../../assets/vite.svg'
 import heroImg from '../../assets/hero.png'
+import { Button } from '../../components/ui/Button'
 import '../../App.css'
 
 export function Home() {
@@ -21,13 +22,14 @@ export function Home() {
             Edit <code>src/pages/Home/Home.tsx</code> and save to test <code>HMR</code>
           </p>
         </div>
-        <button
+        <Button
           type="button"
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
           Count is {count}
-        </button>
+        </Button>
+
         <div style={{ marginTop: '1rem' }}>
           <a href="/login" style={{ color: '#aa3bff', fontWeight: 500, textDecoration: 'none' }}>Go to Login Page &rarr;</a>
         </div>
