@@ -261,6 +261,21 @@ function toArray<T>(value: unknown): T[] {
  * @returns array
  */
 function parseErrorFields(err: unknown, mapping?: FormErrorMapping): Array<{ name: string; message: string }> {
+  // Handle TanStack Start RPC validation errors (stringified JSON)
+  if (err instanceof Error) {
+    try {
+      const parsed = JSON.parse(err.message)
+      if (parsed && Array.isArray(parsed.issues)) {
+        return parsed.issues.map((issue: { path: (string | number)[]; message: string }) => ({
+          name: mappingErrorNameField(issue.path.join('.'), mapping),
+          message: issue.message
+        }))
+      }
+    } catch {
+      // Not a JSON error, continue to fetch error parsing
+    }
+  }
+
   const fetchErr = err as FetchError
   const responseData = fetchErr.response?._data as Record<string, unknown> | undefined
   const data = responseData?.data ?? responseData

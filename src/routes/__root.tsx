@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { Theme } from '@radix-ui/themes'
 import { NotFound } from '../pages/NotFound/NotFound'
 import { ToastContainer } from '../components/ui/ToastContainer'
