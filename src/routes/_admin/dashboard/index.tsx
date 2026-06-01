@@ -3,4 +3,10 @@ import { DashboardOverview } from '../../../pages/Dashboard/DashboardOverview'
 
 export const Route = createFileRoute('/_admin/dashboard/')({
   component: DashboardOverview,
+  head: () => ({
+    meta: [{
+      title: "Dashboard",
+
+    }]
+  })
 })

@@ -4,9 +4,12 @@ import { Theme } from '@radix-ui/themes'
 import { NotFound } from '../pages/NotFound/NotFound'
 import { ToastContainer } from '../components/ui/ToastContainer'
 
+import { TitleSync } from '../components/TitleSync'
+
 export const Route = createRootRoute({
   component: () => (
     <Theme accentColor="violet" grayColor="slate" panelBackground="translucent" radius="large" scaling="100%">
+      <TitleSync />
       <Outlet />
       <ToastContainer />
       {import.meta.env.DEV && <TanStackRouterDevtools />}
@@ -14,9 +17,9 @@ export const Route = createRootRoute({
   ),
   notFoundComponent: () => (
     <Theme accentColor="violet" grayColor="slate" panelBackground="translucent" radius="large" scaling="100%">
+      <TitleSync />
       <NotFound />
       <ToastContainer />
     </Theme>
   ),
 })
-
