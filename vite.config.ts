@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       proxy: {
-        '/api': {
+        '^/api(/|$)': {
           target: targetApiUrl,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
