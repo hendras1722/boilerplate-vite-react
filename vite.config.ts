@@ -1,27 +1,15 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
+import { apiServerPlugin } from './vite-plugins/api-server'
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
-  const targetApiUrl = env.VITE_API_URL || env.API_URL || 'http://localhost:8000'
-
-  return {
-    plugins: [
-      tailwindcss(),
-      tanstackRouter({ target: 'react', autoCodeSplitting: true }),
-      react()
-    ],
-    server: {
-      proxy: {
-        '^/api(/|$)': {
-          target: targetApiUrl,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        }
-      }
-    }
-  }
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    tanstackRouter({ target: 'react', autoCodeSplitting: true }),
+    react(),
+    apiServerPlugin(),
+  ],
 })
