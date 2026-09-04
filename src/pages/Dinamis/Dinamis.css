@@ -1,0 +1,283 @@
+/* Dinamis Page Styling */
+
+.dinamis-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.dinamis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dinamis-title-section h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-h, #0f172a);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.dinamis-title-section p {
+  color: var(--text, #64748b);
+  font-size: 0.925rem;
+}
+
+.dinamis-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.dinamis-stat-card {
+  background: var(--do-card-bg, rgba(99, 102, 241, 0.04));
+  border: 1px solid var(--do-card-border, rgba(99, 102, 241, 0.08));
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(12px);
+}
+
+.dinamis-stat-card:hover {
+  border-color: var(--do-card-hover-border, rgba(99, 102, 241, 0.18));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+}
+
+.dinamis-stat-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dinamis-stat-content h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text, #64748b);
+  margin-bottom: 0.25rem;
+}
+
+.dinamis-stat-content .stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-h, #0f172a);
+}
+
+.dinamis-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+}
+
+@media (max-width: 960px) {
+  .dinamis-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dinamis-panel {
+  background: var(--do-card-bg, rgba(99, 102, 241, 0.04));
+  border: 1px solid var(--do-card-border, rgba(99, 102, 241, 0.08));
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dinamis-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--do-chart-border, rgba(99, 102, 241, 0.08));
+  padding-bottom: 0.75rem;
+}
+
+.dinamis-panel-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-h, #0f172a);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dinamis-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dinamis-search-bar {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.dinamis-filter-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.chip-btn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--do-card-border, rgba(99, 102, 241, 0.1));
+  background: transparent;
+  color: var(--text, #64748b);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip-btn:hover {
+  background: var(--accent-bg, rgba(170, 59, 255, 0.08));
+  color: var(--accent, #aa3bff);
+}
+
+.chip-btn.active {
+  background: var(--accent, #aa3bff);
+  color: #ffffff;
+  border-color: var(--accent, #aa3bff);
+}
+
+.dinamis-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dinamis-item-card {
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--do-card-border, rgba(99, 102, 241, 0.06));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dinamis-item-card:hover {
+  border-color: var(--accent-border, rgba(170, 59, 255, 0.4));
+  background: var(--accent-bg, rgba(170, 59, 255, 0.05));
+  transform: translateX(4px);
+}
+
+.dinamis-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dinamis-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dinamis-item-id {
+  font-family: var(--mono, monospace);
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: var(--code-bg, rgba(0, 0, 0, 0.05));
+  color: var(--accent, #aa3bff);
+}
+
+.dinamis-item-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-h, #0f172a);
+}
+
+.dinamis-item-meta {
+  font-size: 0.825rem;
+  color: var(--text, #64748b);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dinamis-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge-tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+.badge-blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.25); }
+.badge-green { background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); }
+.badge-purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.25); }
+.badge-amber { background: rgba(245, 158, 11, 0.12); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.25); }
+
+/* Detail Page */
+.dinamis-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dinamis-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text, #64748b);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+  width: fit-content;
+}
+
+.dinamis-back-btn:hover {
+  color: var(--accent, #aa3bff);
+}
+
+.dinamis-detail-card {
+  background: var(--do-card-bg, rgba(99, 102, 241, 0.04));
+  border: 1px solid var(--do-card-border, rgba(99, 102, 241, 0.08));
+  border-radius: 1.25rem;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+}
+
+.dinamis-json-viewer {
+  background: var(--code-bg, #1a1b26);
+  border: 1px solid var(--do-card-border, rgba(255, 255, 255, 0.1));
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-family: var(--mono, monospace);
+  font-size: 0.85rem;
+  overflow-x: auto;
+  color: var(--text-h, #e2e8f0);
+}

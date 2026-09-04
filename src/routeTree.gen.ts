@@ -9,40 +9,52 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AdminRouteRouteImport } from './routes/_admin/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthLoginRouteImport } from './routes/_auth/login'
-import { Route as AdminApiDemoRouteImport } from './routes/_admin/api-demo'
+import { Route as AdminRouteRouteImport } from './routes/_admin/route'
 import { Route as AdminAboutRouteImport } from './routes/_admin/about'
+import { Route as AdminApiDemoRouteImport } from './routes/_admin/api-demo'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AdminDashboardIndexRouteImport } from './routes/_admin/dashboard/index'
+import { Route as AdminDinamisIndexRouteImport } from './routes/_admin/dinamis/index'
+import { Route as AdminDinamisIdRouteImport } from './routes/_admin/dinamis/$id'
 
-const AdminRouteRoute = AdminRouteRouteImport.update({
-  id: '/_admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/_auth/login',
-  path: '/login',
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/_admin',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AdminApiDemoRoute = AdminApiDemoRouteImport.update({
-  id: '/api-demo',
-  path: '/api-demo',
-  getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminAboutRoute = AdminAboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminApiDemoRoute = AdminApiDemoRouteImport.update({
+  id: '/api-demo',
+  path: '/api-demo',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/_auth/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardIndexRoute = AdminDashboardIndexRouteImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminDinamisIndexRoute = AdminDinamisIndexRouteImport.update({
+  id: '/dinamis/',
+  path: '/dinamis/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminDinamisIdRoute = AdminDinamisIdRouteImport.update({
+  id: '/dinamis/$id',
+  path: '/dinamis/$id',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
@@ -51,14 +63,18 @@ export interface FileRoutesByFullPath {
   '/about': typeof AdminAboutRoute
   '/api-demo': typeof AdminApiDemoRoute
   '/login': typeof AuthLoginRoute
+  '/dinamis/$id': typeof AdminDinamisIdRoute
   '/dashboard/': typeof AdminDashboardIndexRoute
+  '/dinamis/': typeof AdminDinamisIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AdminAboutRoute
   '/api-demo': typeof AdminApiDemoRoute
   '/login': typeof AuthLoginRoute
+  '/dinamis/$id': typeof AdminDinamisIdRoute
   '/dashboard': typeof AdminDashboardIndexRoute
+  '/dinamis': typeof AdminDinamisIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -67,13 +83,29 @@ export interface FileRoutesById {
   '/_admin/about': typeof AdminAboutRoute
   '/_admin/api-demo': typeof AdminApiDemoRoute
   '/_auth/login': typeof AuthLoginRoute
+  '/_admin/dinamis/$id': typeof AdminDinamisIdRoute
   '/_admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/_admin/dinamis/': typeof AdminDinamisIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/api-demo' | '/login' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/api-demo'
+    | '/login'
+    | '/dinamis/$id'
+    | '/dashboard/'
+    | '/dinamis/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/api-demo' | '/login' | '/dashboard'
+  to:
+    | '/'
+    | '/about'
+    | '/api-demo'
+    | '/login'
+    | '/dinamis/$id'
+    | '/dashboard'
+    | '/dinamis'
   id:
     | '__root__'
     | '/'
@@ -81,7 +113,9 @@ export interface FileRouteTypes {
     | '/_admin/about'
     | '/_admin/api-demo'
     | '/_auth/login'
+    | '/_admin/dinamis/$id'
     | '/_admin/dashboard/'
+    | '/_admin/dinamis/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,13 +126,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_admin': {
-      id: '/_admin'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AdminRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -106,19 +133,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/login': {
-      id: '/_auth/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
+    '/_admin': {
+      id: '/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_admin/api-demo': {
-      id: '/_admin/api-demo'
-      path: '/api-demo'
-      fullPath: '/api-demo'
-      preLoaderRoute: typeof AdminApiDemoRouteImport
-      parentRoute: typeof AdminRouteRoute
     }
     '/_admin/about': {
       id: '/_admin/about'
@@ -127,11 +147,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAboutRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/_admin/api-demo': {
+      id: '/_admin/api-demo'
+      path: '/api-demo'
+      fullPath: '/api-demo'
+      preLoaderRoute: typeof AdminApiDemoRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_admin/dashboard/': {
       id: '/_admin/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AdminDashboardIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/dinamis/': {
+      id: '/_admin/dinamis/'
+      path: '/dinamis'
+      fullPath: '/dinamis/'
+      preLoaderRoute: typeof AdminDinamisIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/dinamis/$id': {
+      id: '/_admin/dinamis/$id'
+      path: '/dinamis/$id'
+      fullPath: '/dinamis/$id'
+      preLoaderRoute: typeof AdminDinamisIdRouteImport
       parentRoute: typeof AdminRouteRoute
     }
   }
@@ -140,13 +188,17 @@ declare module '@tanstack/react-router' {
 interface AdminRouteRouteChildren {
   AdminAboutRoute: typeof AdminAboutRoute
   AdminApiDemoRoute: typeof AdminApiDemoRoute
+  AdminDinamisIdRoute: typeof AdminDinamisIdRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+  AdminDinamisIndexRoute: typeof AdminDinamisIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAboutRoute: AdminAboutRoute,
   AdminApiDemoRoute: AdminApiDemoRoute,
+  AdminDinamisIdRoute: AdminDinamisIdRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+  AdminDinamisIndexRoute: AdminDinamisIndexRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
