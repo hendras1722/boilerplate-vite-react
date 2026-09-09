@@ -66,6 +66,27 @@ async function sendWebResponse(res: ServerResponse, webRes: Response) {
   res.end(body)
 }
 
+function createMiddleware(routes: Record<string, RouteModule>): Connect.NextHandleFunction {
+  return (req, res, next) => {
+    if (!req.url?.startsWith('/api/')) return next()
+
+    const path = req.url.replace(/^\/api/, '')
+    const [routePath] = path.split('?')
+    const handler = routes[routePath]?.[req.method as HttpMethod]
+
+    if (!handler) {
+      res.statusCode = 404
+      res.end(JSON.stringify({ message: 'Not Found' }))
+      return
+    }
+
+    toWebRequest(req, path)
+      .then(handler)
+      .then((webRes) => sendWebResponse(res, webRes))
+      .catch(next)
+  }
+}
+
 export function apiServerPlugin(): Plugin {
   let routes: Record<string, RouteModule> = {}
 
@@ -85,26 +106,11 @@ export function apiServerPlugin(): Plugin {
         if (file.startsWith(ROUTES_DIR)) routes = await loadRoutes()
       })
 
-      const middleware: Connect.NextHandleFunction = (req, res, next) => {
-        if (!req.url?.startsWith('/api/')) return next()
-
-        const path = req.url.replace(/^\/api/, '')
-        const [routePath] = path.split('?')
-        const handler = routes[routePath]?.[req.method as HttpMethod]
-
-        if (!handler) {
-          res.statusCode = 404
-          res.end(JSON.stringify({ message: 'Not Found' }))
-          return
-        }
-
-        toWebRequest(req, path)
-          .then(handler)
-          .then((webRes) => sendWebResponse(res, webRes))
-          .catch(next)
-      }
-
-      server.middlewares.use(middleware)
+      server.middlewares.use(createMiddleware(routes))
+    },
+    async configurePreviewServer(server) {
+      routes = await loadRoutes()
+      server.middlewares.use(createMiddleware(routes))
     },
   }
 }
