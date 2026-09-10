@@ -1,5 +1,6 @@
 import type { Plugin, Connect } from 'vite'
 import type { IncomingMessage, ServerResponse } from 'node:http'
+import { TLSSocket } from 'node:tls'
 import { readdirSync, statSync } from 'node:fs'
 import { join, relative, sep, extname } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -52,7 +53,10 @@ async function toWebRequest(req: IncomingMessage, path: string): Promise<Request
     else if (Array.isArray(value)) headers.set(key, value.join(', '))
   }
 
-  return new Request(`http://localhost${path}`, {
+  const protocol = req.socket instanceof TLSSocket && req.socket.encrypted ? 'https' : 'http'
+  const host = req.headers.host ?? 'localhost'
+
+  return new Request(`${protocol}://${host}${path}`, {
     method: req.method,
     headers,
     body,

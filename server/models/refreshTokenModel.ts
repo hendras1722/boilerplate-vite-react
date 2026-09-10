@@ -1,11 +1,9 @@
-import { randomUUID } from 'node:crypto'
-
 const REFRESH_TTL = 7 * 24 * 60 * 60
 
 const refreshTokens = new Map<string, { userId: number; expires_at: number }>()
 
 export function issueRefreshToken(userId: number) {
-  const token = randomUUID()
+  const token = Bun.randomUUIDv7()
   refreshTokens.set(token, { userId, expires_at: Date.now() + REFRESH_TTL * 1000 })
   return token
 }

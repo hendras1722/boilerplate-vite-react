@@ -132,6 +132,18 @@ export function DashboardLayout() {
             Dinamis
           </Link>
 
+          <Link
+            to="/ws-demo"
+            className="nav-item"
+            activeProps={{ className: 'nav-item active' }}
+            onClick={closeSidebar}
+          >
+            <svg className="nav-item-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8.111 16.404a5.5 5.5 0 017.778 0M4.929 12.808a10.5 10.5 0 0114.142 0M1.714 9.143a15 15 0 0120.572 0M12 20h.01" />
+            </svg>
+            Ws Demo
+          </Link>
+
           <span className="sidebar-section-label">Analytics</span>
 
           <a href="#" className="nav-item" onClick={closeSidebar}>

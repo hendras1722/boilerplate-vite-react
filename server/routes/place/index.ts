@@ -1,0 +1,1 @@
+export { getListPlace as GET } from "../../controllers/placeController";

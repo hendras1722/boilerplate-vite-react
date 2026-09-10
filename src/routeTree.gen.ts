@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/_admin/route'
 import { Route as AdminAboutRouteImport } from './routes/_admin/about'
 import { Route as AdminApiDemoRouteImport } from './routes/_admin/api-demo'
+import { Route as AdminWsDemoRouteImport } from './routes/_admin/ws-demo'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AdminDashboardIndexRouteImport } from './routes/_admin/dashboard/index'
 import { Route as AdminDinamisIndexRouteImport } from './routes/_admin/dinamis/index'
@@ -35,6 +36,11 @@ const AdminAboutRoute = AdminAboutRouteImport.update({
 const AdminApiDemoRoute = AdminApiDemoRouteImport.update({
   id: '/api-demo',
   path: '/api-demo',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminWsDemoRoute = AdminWsDemoRouteImport.update({
+  id: '/ws-demo',
+  path: '/ws-demo',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
@@ -62,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AdminAboutRoute
   '/api-demo': typeof AdminApiDemoRoute
+  '/ws-demo': typeof AdminWsDemoRoute
   '/login': typeof AuthLoginRoute
   '/dinamis/$id': typeof AdminDinamisIdRoute
   '/dashboard/': typeof AdminDashboardIndexRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AdminAboutRoute
   '/api-demo': typeof AdminApiDemoRoute
+  '/ws-demo': typeof AdminWsDemoRoute
   '/login': typeof AuthLoginRoute
   '/dinamis/$id': typeof AdminDinamisIdRoute
   '/dashboard': typeof AdminDashboardIndexRoute
@@ -82,6 +90,7 @@ export interface FileRoutesById {
   '/_admin': typeof AdminRouteRouteWithChildren
   '/_admin/about': typeof AdminAboutRoute
   '/_admin/api-demo': typeof AdminApiDemoRoute
+  '/_admin/ws-demo': typeof AdminWsDemoRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_admin/dinamis/$id': typeof AdminDinamisIdRoute
   '/_admin/dashboard/': typeof AdminDashboardIndexRoute
@@ -93,6 +102,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/api-demo'
+    | '/ws-demo'
     | '/login'
     | '/dinamis/$id'
     | '/dashboard/'
@@ -102,6 +112,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/api-demo'
+    | '/ws-demo'
     | '/login'
     | '/dinamis/$id'
     | '/dashboard'
@@ -112,6 +123,7 @@ export interface FileRouteTypes {
     | '/_admin'
     | '/_admin/about'
     | '/_admin/api-demo'
+    | '/_admin/ws-demo'
     | '/_auth/login'
     | '/_admin/dinamis/$id'
     | '/_admin/dashboard/'
@@ -154,6 +166,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminApiDemoRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/_admin/ws-demo': {
+      id: '/_admin/ws-demo'
+      path: '/ws-demo'
+      fullPath: '/ws-demo'
+      preLoaderRoute: typeof AdminWsDemoRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/_auth/login': {
       id: '/_auth/login'
       path: '/login'
@@ -188,6 +207,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteRouteChildren {
   AdminAboutRoute: typeof AdminAboutRoute
   AdminApiDemoRoute: typeof AdminApiDemoRoute
+  AdminWsDemoRoute: typeof AdminWsDemoRoute
   AdminDinamisIdRoute: typeof AdminDinamisIdRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
   AdminDinamisIndexRoute: typeof AdminDinamisIndexRoute
@@ -196,6 +216,7 @@ interface AdminRouteRouteChildren {
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAboutRoute: AdminAboutRoute,
   AdminApiDemoRoute: AdminApiDemoRoute,
+  AdminWsDemoRoute: AdminWsDemoRoute,
   AdminDinamisIdRoute: AdminDinamisIdRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
   AdminDinamisIndexRoute: AdminDinamisIndexRoute,
